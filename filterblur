@@ -14,14 +14,18 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             //create a temp matrix starting 1 row above, iterate 3 times. k is temp matrix row
             for (int r=-1; r <2; r++)
             {
-                //and 1 column to the left, k is temp matrix column
+                //and 1 column to the left, iterate 3 times
                 for (int c =-1; c < 2; c++)
                 {
+                    //y is row where color data is being pulled, starting 1 above
                     int y = r+i;
+                    //x is column where color data is being pulled, starting 1 to the left
                     int x = c+j;
-                    // if  out of bounds
-                    if (y < 0 || y > height || x < 0 || x > width)
-                    { //do nothing
+                    
+                    // if  x or y is out of bounds
+                    if (y < 0 || y > height-1 || x < 0 || x > width-1)
+                    { 
+                        //do nothing
                     }
                     else
                     {
