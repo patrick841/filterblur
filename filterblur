@@ -3,26 +3,27 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 {
     //create temp array equal to size and width of original
     RGBTRIPLE temp[height][width];
+    
     //start at row 0 of original
     for (int i = 0; i < height; i++)
     {
         //column of original image
-        for (int j=0; j < width; j++)
+        for (int j = 0; j < width; j++)
         {
-            int redcounter =0 , greencounter=0, bluecounter=0, counter = 0;
+            int redcounter = 0 , greencounter = 0, bluecounter = 0, divisor = 0;
             
-            //create a temp matrix starting 1 row above, iterate 3 times. k is temp matrix row
-            for (int r=-1; r <2; r++)
+            //starting 1 row above, iterate 3 times. 
+            for (int r = -1; r < 2; r++)
             {
-                //and 1 column to the left, iterate 3 times
-                for (int c =-1; c < 2; c++)
+                //and 1 column to the left, k is temp matrix column
+                for (int c = -1; c < 2; c++)
                 {
-                    //y is row where color data is being pulled, starting 1 above
-                    int y = r+i;
-                    //x is column where color data is being pulled, starting 1 to the left
-                    int x = c+j;
+                    //y is the row value where color data is being pulled
+                    int y = r + i;
+                    //x is the column color data is being pulled
+                    int x = c + j;
                     
-                    // if  x or y is out of bounds
+                    // if  out of bounds
                     if (y < 0 || y > height-1 || x < 0 || x > width-1)
                     { 
                         //do nothing
@@ -30,19 +31,18 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     else
                     {
                         //grab the values associated with the position
-                        redcounter += image[x][y].rgbtRed;
-                        greencounter +=  image[x][y].rgbtGreen;
-                        bluecounter += image[x][y].rgbtBlue;
+                        redcounter += image[y][x].rgbtRed;
+                        greencounter +=  image[y][x].rgbtGreen;
+                        bluecounter += image[y][x].rgbtBlue;
                         
                         //and count the number of times you have done so
-                        counter++;
-                        continue;
+                        divisor++;
                     }
                 }
             }
-        int blurred =  (int) (round(redcounter / counter));
-        int blurgreen =  (int) (round(greencounter/ counter));
-        int blurblue = (int) (round(bluecounter / counter));
+        float blurred =  round((float)redcounter / divisor);
+        float blurgreen =  round((float)greencounter/ divisor);
+        float blurblue = round((float)bluecounter / divisor);
         
         if (blurred > max)
         {
@@ -57,9 +57,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             blurblue = max;
         }
         
-        temp[i][j].rgbtRed =  blurred;
-        temp[i][j].rgbtGreen =  blurgreen;
-        temp[i][j].rgbtBlue =  blurblue;
+        temp[i][j].rgbtRed =  (int)blurred;
+        temp[i][j].rgbtGreen = (int) blurgreen;
+        temp[i][j].rgbtBlue = (int) blurblue;
         }
     }
 
