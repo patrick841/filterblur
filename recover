@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+typedef uint8_t BYTE;
+
+int main(int argc, char *argv[])
+{
+    //ensure only 1 argument
+    if (!(argc == 2))
+    {
+        printf("incorrect usage");
+        return 1;
+    }
+
+    //open the input file
+    
+
+    //open a throwaway output file
+    
+    
+    //create buffer of 4 bytes, set counter to 0
+    
+
+    while (fread(buffer, sizeof(BYTE), 4, infile))
+    {
+        //search jor jpg identifier
+        if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && buffer[3] >= 0xe0 && buffer[3] <= 0xef)
+        {
+            //close old file
+            
+            
+            //delete the throwaway file
+            
+            
+            //create name for new file
+            
+            
+            //create new file
+            
+        }
+        
+        //write into whatever file is open
+       
+
+    }
+    
+    //close input file
+    
+}
+
